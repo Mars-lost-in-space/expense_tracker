@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:expense_tracker/data/data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -202,8 +203,8 @@ class MainScreen extends StatelessWidget {
               ),
             ),
             //this is where the main gradient container ends
-            const SizedBox(height: 25),
-            const Row(
+            const SizedBox(height: 40),
+             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -212,8 +213,8 @@ class MainScreen extends StatelessWidget {
                     Text(
                       'Transactions',
                       style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 17,
+                        color: Theme.of(context).colorScheme.onBackground,
+                        fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
                     )
@@ -221,183 +222,94 @@ class MainScreen extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Text(
-                      'View All',
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
+                    GestureDetector(
+                      onTap: (){
+
+                      },
+                      child: Text(
+                        'View All',
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.outline,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                     )
                   ],
                 ),
               ],
             ),
-            //where the transaction list begins from
-            //item food
             const SizedBox(height: 20),
-            Container(
-              width:  MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.width / 5,
-              decoration: BoxDecoration(
-                color: Colors.white60,
-                borderRadius: BorderRadius.circular(25),   
-                boxShadow: [
-                  BoxShadow (
-                    blurRadius: 4,
-                    color: Colors.grey.shade300,
-                    offset: Offset(5, 5),
-                  )   
-                ]     
-              ),
-              child:  Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Container(
-                          width: 45,
-                          height: 45,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.yellow[700],
-                          ),
-                        ),
-                        Icon(
-                          CupertinoIcons.person_fill,
-                          color: Colors.yellow[900],
-                        )
-                                            ]
-                                          ),
-                      const SizedBox(
-                        width: 8,
+            Expanded(  //where the transaction list begins from
+              child: ListView.builder(
+                itemCount: transactionsData.length,
+                itemBuilder: (context, int i){
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 16.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(12)
                       ),
-                      Text(
-                        'Food', 
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).colorScheme.onBackground
-                          )
-                      )
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          mainAxisAlignment: MainAxisAlignment.center,
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text(
-                              '-\$45.00',
-                              style: TextStyle(
-                               fontSize: 14,
-                               fontWeight: FontWeight.w600,
-                               color: Colors.black,
-                              ),
+                            Row(
+                              children: [
+                                Stack(
+                                  alignment: Alignment.center,
+                                  children: [
+                                    Container(
+                                      width: 50,
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        color: transactionsData[i]['color'],
+                                        shape: BoxShape.circle,
+                                      ),
+                                    ),
+                                    transactionsData[i]['icon'],
+                                  ],
+                                ),
+                                const SizedBox(width: 12),
+                                Text(
+                                  transactionsData[i]['name'],
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Theme.of(context).colorScheme.onBackground,
+                                    fontWeight: FontWeight.w500
+                                  ),
+                                ),
+                              ],
                             ),
-                            Text(
-                              'Today',
-                              style: TextStyle(
-                               fontSize: 12,
-                               fontWeight: FontWeight.w400,
-                               color: Theme.of(context).colorScheme.outline
-                              ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(
+                                  transactionsData[i]['totalAmount'],
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Theme.of(context).colorScheme.onBackground,
+                                    fontWeight: FontWeight.w400
+                                  ),
+                                ),
+                                Text(
+                                  transactionsData[i]['date'],
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Theme.of(context).colorScheme.outline,
+                                    fontWeight: FontWeight.w500
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
-                      ],
-                    ),
-                  ]
-                ),
-              ),
-            ),
-            //item 2: shopping
-            const SizedBox(height: 20),
-            Container(
-              width:  MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.width / 5,
-              decoration: BoxDecoration(
-                color: Colors.white60,
-                borderRadius: BorderRadius.circular(25),   
-                boxShadow: [
-                  BoxShadow (
-                    blurRadius: 4,
-                    color: Colors.grey.shade300,
-                    offset: Offset(5, 5),
-                  )   
-                ]     
-              ),
-              child:  Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Container(
-                          width: 45,
-                          height: 45,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.yellow[700],
-                          ),
-                        ),
-                        Icon(
-                          CupertinoIcons.person_fill,
-                          color: Colors.yellow[900],
-                        )
-                                            ]
-                                          ),
-                      const SizedBox(
-                        width: 8,
                       ),
-                      Text(
-                        'Shopping', 
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).colorScheme.onBackground
-                          )
-                      )
-                      ],
                     ),
-                    Row(
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text(
-                              '-\$280.00',
-                              style: TextStyle(
-                               fontSize: 14,
-                               fontWeight: FontWeight.w600,
-                               color: Colors.black,
-                              ),
-                            ),
-                            Text(
-                              'Today',
-                              style: TextStyle(
-                               fontSize: 12,
-                               fontWeight: FontWeight.w400,
-                               color: Theme.of(context).colorScheme.outline
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ]
-                ),
+                  );
+                }
               ),
             ),
           ],

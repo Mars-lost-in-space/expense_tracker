@@ -21,13 +21,13 @@ class HomeScreen extends StatelessWidget {
           showSelectedLabels: false,
           showUnselectedLabels: false,
           elevation: 3,
-          items: const [
+          items: [
             BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.home),
+              icon: Icon(CupertinoIcons.home, color: Colors.grey[500]),
               label: 'Home'
               ),
             BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.graph_circle_fill),
+              icon: Icon(CupertinoIcons.graph_circle_fill, color: Colors.grey[500]),
               label: 'Stats'
             )
         ],
